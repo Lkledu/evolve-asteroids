@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LeastSquare : MonoBehaviour
 {
+
+    //https://www.youtube.com/watch?v=JvS2triCgOY
     protected List<int> x_table;
     protected List<int> y_table;
     private List<int> x_square_table;
@@ -35,6 +37,28 @@ public class LeastSquare : MonoBehaviour
 
         return result;
     }
+
+    int media(List<int> coluna) {
+        int media = 0;
+        
+        media = somatoria(coluna) / coluna.Count;
+
+        return media;
+    }
+
+    List<int> desvio;
+    List<int> desvioDaReta(List<int> coluna) {
+        
+        int mediaValue = media(coluna);
+
+        for (int i = 0; i < coluna.Count; i++)
+        {
+            desvio.Add(coluna[i] - mediaValue);
+        }
+
+        return desvio;
+    }
+
 
 
     int determinante() {
