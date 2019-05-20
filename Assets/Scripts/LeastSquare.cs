@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ public class LeastSquare : MonoBehaviour
         }
     }
 
-    int somatoria(List<int> coluna) {
+    private int somatoria(List<int> coluna) {
         int result = 0;
         for (int i = 0; i < coluna.Count; i++)
         {
@@ -38,7 +39,7 @@ public class LeastSquare : MonoBehaviour
         return result;
     }
 
-    int media(List<int> coluna) {
+    private int media(List<int> coluna) {
         int media = 0;
         
         media = somatoria(coluna) / coluna.Count;
@@ -46,22 +47,60 @@ public class LeastSquare : MonoBehaviour
         return media;
     }
 
-    List<int> desvio;
-    List<int> desvioDaReta(List<int> coluna) {
+   private float correlaçãoLinear()
+    {
+        float r = 0;
+
+        r = (somatoria(xy_table) - ((somatoria(x_table) * somatoria(y_table)) / x_table.Count)) / ((Mathf.Sqrt(somatoria(x_square_table) - Mathf.Pow(somatoria(x_table), 2) / x_table.Count)) * (Mathf.Sqrt(somatoria(x_square_table) - Mathf.Pow(somatoria(x_table), 2) / x_table.Count)));
+
+        return r;
+    }
+
+    private float inclinacaoDaReta() {
+        float b = 0;
+
+        b = ((x_table.Count * somatoria(xy_table)) - (somatoria(x_table) * somatoria(y_table))) / (x_table.Count * somatoria(x_square_table) - somatoria(x_square_table));
+        return b;
+    }
+
+    private float interceptoDaReta() {
+        float a = 0;
+
+        a = media(y_table) - inclinacaoDaReta() * media(x_table);
+        return a;
+    }
+
+    List<float> yLine;
+    List<float> yHat() {
+
+        for (int i = 0; i < x_table.Count; i++)
+        {
+            yLine.Add(interceptoDaReta() + inclinacaoDaReta() * x_table[i]);
+        }
+        
+
+        return yLine;
+    }
+    //##############################################
+    [ObsoleteAttribute]
+    private List<int> desvioDaReta;
+    [ObsoleteAttribute]
+    private List<int> calculoDeDesvioDaReta(List<int> coluna) {
         
         int mediaValue = media(coluna);
 
         for (int i = 0; i < coluna.Count; i++)
         {
-            desvio.Add(coluna[i] - mediaValue);
+            desvioDaReta.Add(coluna[i] - mediaValue);
         }
 
-        return desvio;
+        return desvioDaReta;
     }
 
+    //##############################################
 
-
-    int determinante() {
+    [ObsoleteAttribute]
+    private int determinante() {
         int delta = 0;
         int[,] delta_matriz = new int[2,2];
         delta_matriz[0, 0] = x_table.Count;
@@ -73,8 +112,8 @@ public class LeastSquare : MonoBehaviour
 
         return delta;
     }
-
-    int determinanteA() {
+    [ObsoleteAttribute]
+    private int determinanteA() {
         int delta = 0;
         int[,] delta_matriz = new int[2, 2];
         delta_matriz[0, 0] = somatoria(y_table);
@@ -86,8 +125,8 @@ public class LeastSquare : MonoBehaviour
 
         return delta;
     }
-
-    int determinanteB() {
+    [ObsoleteAttribute]
+    private int determinanteB() {
         int delta = 0;
         int[,] delta_matriz = new int[2, 2];
         delta_matriz[0, 0] = somatoria(y_table);
@@ -99,8 +138,8 @@ public class LeastSquare : MonoBehaviour
 
         return delta;
     }
-
-    float lastSquareResult() {
+    [ObsoleteAttribute]
+    private float lastSquareResult() {
         float y = 0, a, b;
 
         a = determinanteA() / determinante();
