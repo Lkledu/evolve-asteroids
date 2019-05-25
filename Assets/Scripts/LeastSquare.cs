@@ -7,10 +7,10 @@ public class LeastSquare : MonoBehaviour
 {
 
     //https://www.youtube.com/watch?v=JvS2triCgOY
-    protected List<int> x_table;
-    protected List<int> y_table;
-    private List<int> x_square_table;
-    private List<int> xy_table;
+    public List<int> x_table = new List<int>();
+    public List<int> y_table = new List<int>();
+    private List<int> x_square_table = new List<int>();
+    private List<int> xy_table = new List<int>();
 
     void populateXSquare() {
 
@@ -58,8 +58,8 @@ public class LeastSquare : MonoBehaviour
 
     private float inclinacaoDaReta() {
         float b = 0;
-
-        b = ((x_table.Count * somatoria(xy_table)) - (somatoria(x_table) * somatoria(y_table))) / (x_table.Count * somatoria(x_square_table) - somatoria(x_square_table));
+        Debug.Log("X²: " + somatoria(x_square_table) + "\n X: " + somatoria(x_table));
+        b = ((x_table.Count * somatoria(xy_table)) - (somatoria(x_table) * somatoria(y_table))) / (x_table.Count * somatoria(x_square_table) - (somatoria(x_table) * somatoria(x_table)));
         return b;
     }
 
@@ -70,16 +70,17 @@ public class LeastSquare : MonoBehaviour
         return a;
     }
 
-    List<float> yLine;
-    List<float> yHat() {
+    List<float> yLine = new List<float>();
+    public double yHat() {
 
         for (int i = 0; i < x_table.Count; i++)
         {
             yLine.Add(interceptoDaReta() + inclinacaoDaReta() * x_table[i]);
         }
-        
 
-        return yLine;
+        Debug.Log("X: "+ x_table[x_table.Count -1]+"\n^y: "+ yLine[yLine.Count - 1]);
+
+        return yLine[yLine.Count - 1];
     }
     //##############################################
     [ObsoleteAttribute]
@@ -96,9 +97,6 @@ public class LeastSquare : MonoBehaviour
 
         return desvioDaReta;
     }
-
-    //##############################################
-
     [ObsoleteAttribute]
     private int determinante() {
         int delta = 0;

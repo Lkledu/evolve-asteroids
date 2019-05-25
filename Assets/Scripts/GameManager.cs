@@ -99,6 +99,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator m_ResetCoroutine;
 
+    [Header("LeastSquare")]
+    private LeastSquare m_lSquare;
+
     public void Start()
     {
         if (m_ResetHighscore)
@@ -110,6 +113,8 @@ public class GameManager : MonoBehaviour
         m_Population = PopulationRandomInitialize();
         m_ResetCoroutine = ResetGame(false);
         StartCoroutine(m_ResetCoroutine);
+
+        m_lSquare = new LeastSquare();
     }
 
     public List<Chromosome> PopulationRandomInitialize()
@@ -370,11 +375,14 @@ public class GameManager : MonoBehaviour
 
     public double EvaluationFitness()
     {
-        return m_Score;
+        return m_lSquare.yHat();
     }
 
     public void DecrementLives()
     {
+        m_lSquare.x_table.Add((int)m_Time);
+        m_lSquare.y_table.Add(m_Highscore);
+
         m_Run = false;
         m_Population[m_CurrentChromosome].Fitness = EvaluationFitness();
 
