@@ -383,7 +383,7 @@ public class GameManager : MonoBehaviour
 
     public double EvaluationFitness()
     {
-        return m_lSquare.yHat();
+        return m_Score;
     }
 
     public void DecrementLives()
