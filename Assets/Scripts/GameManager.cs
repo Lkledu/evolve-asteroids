@@ -162,6 +162,10 @@ public class GameManager : MonoBehaviour
         UpdateHud();
 
         SpawnShip();
+        SpawnShip();
+        SpawnShip();
+        SpawnShip();
+        SpawnShip();
 
         SpawnAsteroids();
 
@@ -316,7 +320,11 @@ public class GameManager : MonoBehaviour
 
     private void SpawnShip()
     {
-        GameObject ship = Instantiate(m_Ship, Vector3.zero, Quaternion.identity);
+        Bounds bounds = Camera.main.OrthographicBounds();
+        float x = Random.Range(bounds.min.x, bounds.max.x);
+        float y = Random.Range(bounds.min.y, bounds.max.y);
+        
+        GameObject ship = Instantiate(m_Ship, new Vector3(x,y,0), Quaternion.identity);
         Brain brain = ship.GetComponent<Brain>();
         brain.Chromosome = m_Population[m_CurrentChromosome];
     }
