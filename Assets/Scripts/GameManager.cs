@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         m_ResetCoroutine = ResetGame(false);
         StartCoroutine(m_ResetCoroutine);
 
-        m_lSquare = new LeastSquare();
+        //m_lSquare = new LeastSquare();
     }
 
     public List<Chromosome> PopulationRandomInitialize()
@@ -289,6 +289,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 m_CurrentChromosome = (int)(m_PopulationSize * m_ElitismRate);
+                Debug.Log("CurrentChromosome: "+m_CurrentChromosome.ToString()+"\n");
             }
         }
     }
@@ -326,7 +327,11 @@ public class GameManager : MonoBehaviour
         
         GameObject ship = Instantiate(m_Ship, new Vector3(x,y,0), Quaternion.identity);
         Brain brain = ship.GetComponent<Brain>();
+        Debug.Log("Population: "+m_Population.Count.ToString()+
+            " CurrentChromosome: "+m_CurrentChromosome.ToString()+
+            " PopulationSize: "+m_PopulationSize.ToString());
         brain.Chromosome = m_Population[m_CurrentChromosome];
+        
     }
 
     private void SpawnAsteroids()
@@ -388,11 +393,14 @@ public class GameManager : MonoBehaviour
 
     public void DecrementLives()
     {
-        m_lSquare.x_table.Add((int)m_Time);
-        m_lSquare.y_table.Add(m_Highscore);
+        //m_lSquare.x_table.Add((int)m_Time);
+        //m_lSquare.y_table.Add(m_Highscore);
 
         m_Run = false;
-        m_Population[m_CurrentChromosome].Fitness = EvaluationFitness();
+        Debug.Log("Chromosome Fintness position: "+m_CurrentChromosome.ToString());
+        if(m_CurrentChromosome < m_PopulationSize){
+            m_Population[m_CurrentChromosome].Fitness = EvaluationFitness();
+        }
 
         m_CurrentChromosome++;
         if (m_CurrentChromosome == m_PopulationSize)
