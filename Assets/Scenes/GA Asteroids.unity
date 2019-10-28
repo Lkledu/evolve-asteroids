@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Asteroid: {fileID: 4663329913083730064, guid: 1ee0c0c45374780499158f127279ef54,
     type: 3}
   m_Ship: {fileID: 5023433477196949076, guid: f8ec8d84f8ec55b459d63f02c5cdcfa8, type: 3}
-  m_IncreaseEachWave: 1
+  m_IncreaseEachWave: 5
   m_RespawnDistance: 3
   m_RespawnTime: 1
   m_UseMaxTime: 1
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_MaxGeneration: 20
   m_ElitismRate: 0.2
   m_EvaluateEliteAgain: 1
-  m_FileName: 
+  m_FileName: testeOldVersion
   m_UseRandomSeed: 1
   m_EvolutionaryRandomSeed: 11
   m_GameRandomSeed: 31
