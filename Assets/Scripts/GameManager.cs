@@ -162,10 +162,6 @@ public class GameManager : MonoBehaviour
         UpdateHud();
 
         SpawnShip();
-        SpawnShip();
-        SpawnShip();
-        SpawnShip();
-        SpawnShip();
 
         SpawnAsteroids();
 
